@@ -1,26 +1,60 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #1A1A1A;
+  --red: #E10600;
+  --yellow: #FFFB00;
+  --pale-cream: #F3EFDF;
 }
 
 @theme inline {
   --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-bangers: var(--font-bangers);
+  --font-space-mono: var(--font-space-mono);
+  --font-caveat: var(--font-caveat),cursive;
+  --color-red: var(--red);
+  --color-yellow: var(--yellow);
+  --color-pale-cream: var(--pale-cream);  
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
   }
-}
+} */
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--background);
+  font-family: var(--font-bangers), var(--font-space-mono), monospace;
+  overflow-x: hidden;
 }
+
+@utility bg-hero-radial {
+  background: radial-gradient(
+    45% 45% at 50% 42%,
+    #F20F0F 4.8%,
+    #6B1616 46.15%,
+    #1A1A1A 72.6%
+  );
+}
+
+/* Pola titik halftone transparan di atas radial */
+@utility bg-halftone-dots {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1.5px, transparent 1.5px);
+  background-size: 20px 20px;
+}
+
+/* Hard shadow khas komik / Persona 5 */
+@utility shadow-comic {
+  box-shadow: -5px 5px 0px #000000;
+}
+
+@utility shadow-comic-lg {
+  box-shadow: -8px 8px 0px #000000;
+}
+
+/* Tambahkan ini di paling bawah */
+/* * {
+  border: 1px solid red !important;
+} */
