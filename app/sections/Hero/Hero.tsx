@@ -17,7 +17,7 @@ export function Hero() {
         <img
           src={heroData.bgImage}
           alt="VLABUM Background"
-          className="w-[90vh] h-[90vw] max-w-none object-cover rotate-80 top-9 scale-110 blur-[2px] grayscale contrast-125 brightness-75"
+          className="w-[160vh] h-[100vw] max-w-none object-cover rotate-70 scale-110 blur-[2px] grayscale contrast-125 brightness-75"
         />
 
         {/* Layer 1: Tekstur Film Grain / Noise Analog (Menyamarkan piksel foto yang di-zoom) */}

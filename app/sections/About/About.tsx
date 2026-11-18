@@ -163,7 +163,7 @@ export function About() {
                   <img
                     src={aboutData.photo.src}
                     alt={aboutData.photo.caption}
-                    className="w-full h-full object-cover grayscale contrast-125"
+                    className="w-full h-full object-cover object-[50%_25%] grayscale contrast-125"
                   />
                 </div>
                 <div className="bg-red border-t-4 border-black py-1.5 px-3 text-center">

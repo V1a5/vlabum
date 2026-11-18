@@ -8,8 +8,8 @@ export const aboutData = {
     "\"Gak perlu ribet mikirin harus masuk kotak genre apa. Yang penting proses bikinnya seru, lagunya jujur, dan pesannya nyampe ke yang dengerin.\"",
   photo: {
     // Ganti dengan foto band jika sudah ada, sementara pakai logo_black_bg.jpg
-    src: "/assets/logo/logo_black_bg.jpg",
-    caption: "KUMPULAN FOTO STUDIO / 2026",
+    src: "/assets/member/member_pic-10.jpeg",
+    caption: "2026",
   },
   tags: [
     { label: "PUNK", bg: "bg-red text-pale-cream" },
