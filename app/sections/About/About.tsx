@@ -58,22 +58,21 @@ export function About() {
   return (
     <section
       id="About"
-      className="relative w-full min-h-screen bg-background overflow-hidden flex items-center justify-center py-24 md:py-32 px-4 select-none"
+      className="relative w-full min-h-screen bg-background overflow-hidden flex items-center justify-center py-16 sm:py-24 md:py-32 px-4 sm:px-6 select-none"
     >
       {/* BACKGROUND DIAGONAL KUNING - HITAM */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
-        <div className="absolute top-[26%] -left-20 -right-20 h-28 md:h-36 bg-yellow/55 -rotate-12" />
-        <div className="absolute top-[10%] -left-20 -right-20 h-44 md:h-56 bg-yellow -rotate-12" />
-        <div className="absolute -bottom-32 -left-20 -right-20 h-[48%] bg-yellow -rotate-12" />
+        <div className="absolute top-[22%] sm:top-[26%] -left-20 -right-20 h-20 sm:h-28 md:h-36 bg-yellow/55 -rotate-12" />
+        <div className="absolute top-[8%] sm:top-[10%] -left-20 -right-20 h-32 sm:h-44 md:h-56 bg-yellow -rotate-12" />
+        <div className="absolute -bottom-24 sm:-bottom-32 -left-20 -right-20 h-[44%] sm:h-[48%] bg-yellow -rotate-12" />
       </div>
 
       {/* WADAH UTAMA KARTU MANIFESTO + JUDUL + INSTRUMEN */}
-      <div className="relative z-10 max-w-4xl w-full mt-8 md:mt-12">
+      <div className="relative z-10 max-w-4xl w-full mt-4 sm:mt-8 md:mt-12">
         {/* =========================================================
-            JUDUL ABOUT US (Auto-scale proporsional di semua ukuran layar)
-            Tinggal atur lebar (w-[...]) & geseran (-left / -mb) tiap breakpoint!
+            JUDUL ABOUT US (Responsif mulai 375px hingga Desktop)
         ========================================================= */}
-        <div className="relative z-30 w-[330px] sm:w-[490px] md:w-[620px] lg:w-[785px] -left-2 sm:-left-6 md:-left-16 lg:-left-28 -mb-6 sm:-mb-10 md:-mb-12 lg:-mb-16 pointer-events-none">
+        <div className="relative z-30 w-[290px] sm:w-[460px] md:w-[560px] lg:w-[650px] left-0 sm:-left-4 md:-left-10 lg:-left-28 -mb-5 sm:-mb-9 md:-mb-12 lg:-mb-16 pointer-events-none">
           <svg
             viewBox="0 0 795 250"
             className="w-full h-auto overflow-visible block"
@@ -90,7 +89,6 @@ export function About() {
 
               return (
                 <g key={idx}>
-                  {/* 1. Kotak Luar / Shadow */}
                   <rect
                     x={item.outerRect.x}
                     y={item.outerRect.y}
@@ -99,8 +97,6 @@ export function About() {
                     fill={item.outerRect.bg}
                     transform={`rotate(${item.outerRect.rotate} ${cxOuter} ${cyOuter})`}
                   />
-
-                  {/* 2. Kotak Dalam */}
                   <rect
                     x={item.innerRect.x}
                     y={item.innerRect.y}
@@ -109,8 +105,6 @@ export function About() {
                     fill={item.innerRect.bg}
                     transform={`rotate(${item.innerRect.rotate} ${cxInner} ${cyInner})`}
                   />
-
-                  {/* 3. Huruf */}
                   <text
                     x={cxText}
                     y={cyText}
@@ -129,35 +123,42 @@ export function About() {
           </svg>
         </div>
 
-        {/* ASET BASS (KIRI KARTU) & GITAR (KANAN KARTU) */}
-        <div className="hidden lg:block absolute -left-100 -bottom-56 z-30 pointer-events-none rotate-60">
+        {/* =========================================================
+            ASET BASS (KIRI BAWAH KARTU - Muncul mulai Tablet 640px/700px)
+        ========================================================= */}
+        <div className="hidden sm:block absolute -left-24 md:-left-36 lg:-left-100 -bottom-20 md:-bottom-28 lg:-bottom-56 z-30 pointer-events-none rotate-60">
           <img
             src={aboutData.assets.bass}
             alt="Bass Guitar"
-            className="w-150 h-auto object-contain scale-125 drop-shadow-[-1px_8px_0px_#000000]"
+            className="w-44 md:w-64 lg:w-150 h-auto object-contain scale-110 lg:scale-125 drop-shadow-[-1px_8px_0px_#000000]"
           />
         </div>
 
-        <div className="hidden lg:block absolute -right-90 top-16 z-10 pointer-events-none -rotate-80">
+        {/* =========================================================
+            ASET GITAR (KANAN ATAS KARTU - Muncul mulai Tablet 640px/700px)
+        ========================================================= */}
+        <div className="hidden sm:block absolute -right-24 md:-right-36 lg:-right-90 -top-6 md:top-4 lg:top-16 z-10 pointer-events-none -rotate-80">
           <img
             src={aboutData.assets.guitar}
             alt="Electric Guitar"
-            className="w-150 h-auto object-contain scale-125 drop-shadow-[-8px_8px_0px_#000000]"
+            className="w-44 md:w-64 lg:w-150 h-auto object-contain scale-110 lg:scale-125 drop-shadow-[-8px_8px_0px_#000000]"
           />
         </div>
 
-        {/* KARTU MANIFESTO UTAMA (KREM) */}
-        <div className="relative z-20 bg-pale-cream text-black border-4 border-black shadow-comic-lg p-6 sm:p-10 md:p-12">
-          {/* 3 Selotip (Masking Tape) */}
-          <div className="absolute -top-3.5 left-12 md:left-24 w-20 md:w-24 h-6 bg-[#D6CEB8]/90 border border-black/20 -rotate-12 shadow-sm pointer-events-none" />
-          <div className="absolute -top-3 -right-5 w-20 md:w-24 h-6 bg-[#D6CEB8]/90 border border-black/20 rotate-18 shadow-sm pointer-events-none" />
-          <div className="absolute -bottom-3 -right-4 w-20 md:w-24 h-6 bg-[#D6CEB8]/90 border border-black/20 -rotate-18 shadow-sm pointer-events-none" />
+        {/* =========================================================
+            KARTU MANIFESTO UTAMA (KREM)
+        ========================================================= */}
+        <div className="relative z-20 bg-pale-cream text-black border-4 border-black shadow-comic-lg p-5 sm:p-8 md:p-12">
+          {/* 3 Selotip (Masking Tape - Aman dari overflow di layar 375px) */}
+          <div className="absolute -top-3 left-8 sm:left-12 md:left-24 w-16 sm:w-20 md:w-24 h-5 sm:h-6 bg-[#D6CEB8]/90 border border-black/20 -rotate-12 shadow-sm pointer-events-none" />
+          <div className="absolute -top-3 right-3 sm:-right-4 md:-right-5 w-16 sm:w-20 md:w-24 h-5 sm:h-6 bg-[#D6CEB8]/90 border border-black/20 rotate-18 shadow-sm pointer-events-none" />
+          <div className="absolute -bottom-3 right-3 sm:-right-4 w-16 sm:w-20 md:w-24 h-5 sm:h-6 bg-[#D6CEB8]/90 border border-black/20 -rotate-18 shadow-sm pointer-events-none" />
 
           {/* Grid Konten Dalam Kartu */}
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-10 items-center">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-8 md:gap-10 items-center">
             {/* KOLOM KIRI: Bingkai Foto Band */}
             <div className="md:col-span-5 flex justify-center">
-              <div className="w-full max-w-[300px] border-4 border-black bg-black shadow-comic -rotate-1">
+              <div className="w-full max-w-[260px] sm:max-w-[300px] border-4 border-black bg-black shadow-comic -rotate-1">
                 <div className="aspect-square w-full overflow-hidden bg-neutral-900">
                   <img
                     src={aboutData.photo.src}
@@ -175,27 +176,27 @@ export function About() {
 
             {/* KOLOM KANAN: Teks Manifesto */}
             <div className="md:col-span-7 flex flex-col items-start">
-              <span className="inline-block bg-black text-pale-cream font-space-mono text-[10px] sm:text-xs font-bold tracking-widest px-2.5 py-1 uppercase mb-3">
+              <span className="inline-block bg-black text-pale-cream font-space-mono text-[10px] sm:text-xs font-bold tracking-widest px-2.5 py-1 uppercase mb-2.5 sm:mb-3">
                 {aboutData.badge}
               </span>
 
-              <h2 className="font-bangers text-2xl sm:text-3xl md:text-[32px] leading-tight tracking-wide text-red uppercase mb-4">
+              <h2 className="font-bangers text-2xl sm:text-3xl md:text-[32px] leading-tight tracking-wide text-red uppercase mb-3 sm:mb-4">
                 {aboutData.headline}
               </h2>
 
-              <p className="font-space-mono text-xs sm:text-sm leading-relaxed text-neutral-800 mb-5">
+              <p className="font-space-mono text-xs sm:text-sm leading-relaxed text-neutral-800 mb-4 sm:mb-5">
                 {aboutData.description}
               </p>
 
-              <blockquote className="w-full bg-[#E5DFCD] border-l-4 border-neutral-500 p-3.5 sm:p-4 font-space-mono text-xs leading-relaxed text-neutral-900 mb-6">
+              <blockquote className="w-full bg-[#E5DFCD] border-l-4 border-neutral-500 p-3 sm:p-4 font-space-mono text-xs leading-relaxed text-neutral-900 mb-5 sm:mb-6">
                 {aboutData.quote}
               </blockquote>
 
-              <div className="flex flex-wrap items-center gap-2.5 sm:gap-3">
+              <div className="flex flex-wrap items-center gap-2 sm:gap-3">
                 {aboutData.tags.map((tag) => (
                   <span
                     key={tag.label}
-                    className={`inline-block font-bangers text-sm sm:text-base tracking-wider px-3.5 py-1 border-2 border-black hover:-rotate-2 hover:shadow-[-4px_4px_0px_#000000] transition-all ${tag.bg}`}
+                    className={`inline-block font-bangers text-sm sm:text-base tracking-wider px-3 sm:px-3.5 py-1 border-2 border-black hover:-rotate-2 hover:shadow-[-4px_4px_0px_#000000] transition-all ${tag.bg}`}
                   >
                     {tag.label}
                   </span>

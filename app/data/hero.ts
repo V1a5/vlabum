@@ -2,6 +2,8 @@
 export const heroData = {
   logo: "/assets/logo/logo_no_bg.png",
   tagline: "BAND INDIE DARI KAMAR SEMPIT",
+  // Di dalam heroData:
+  bgImage: "/assets/member/member_pic-3.jpeg", // Sesuaikan ekstensi file aslinya
   cta: {
     primary: { label: "PLAY THE MUSIC", href: "#Song" }, // menuju section #song
     secondary: { label: "ABOUT US", href: "#About" }, // menuju section #about

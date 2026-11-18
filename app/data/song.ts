@@ -21,7 +21,7 @@ export const songsData: SongItem[] = [
     number: "01",
     title: "INDAHNYA IBUKOTA",
     duration: "03:08",
-    audioSrc: "/audio/indahnya ibu kota.wav",
+    audioSrc: "/audio/indahnya ibu kota.mpeg",
     cassetteSvg: "/assets/asset-cassete_Indahnya-ibukota.svg",
     cassetteFilter: "none",
     stripColor: "#009919",

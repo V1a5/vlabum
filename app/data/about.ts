@@ -12,9 +12,9 @@ export const aboutData = {
     caption: "KUMPULAN FOTO STUDIO / 2026",
   },
   tags: [
-    { label: "POP PUNK", bg: "bg-red text-pale-cream" },
-    { label: "MELLOW", bg: "bg-black text-pale-cream" },
-    { label: "ELEKTRONIK", bg: "bg-[#1D4ED8] text-pale-cream" },
+    { label: "PUNK", bg: "bg-red text-pale-cream" },
+    { label: "New Wave", bg: "bg-[#FF007F] text-pale-cream" },
+    { label: "Indie", bg: "bg-yellow text-black" },
   ],
   assets: {
     bass: "/assets/asset-bass_no_bg.png",
