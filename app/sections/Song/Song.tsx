@@ -139,9 +139,13 @@ export function Song() {
       <div className="absolute inset-0 bg-halftone-dots opacity-35 pointer-events-none z-0" />
 
       {/* Elemen Audio HTML5 */}
+      {/* Elemen Audio HTML5 */}
       <audio
         ref={audioRef}
         src={currentSong.audioSrc}
+        controlsList="nodownload noplaybackrate"
+        onContextMenu={(e) => e.preventDefault()}
+        preload="metadata"
         onTimeUpdate={(e) => setCurrentTime(e.currentTarget.currentTime)}
         onLoadedMetadata={(e) => setDuration(e.currentTarget.duration)}
         onEnded={() => {

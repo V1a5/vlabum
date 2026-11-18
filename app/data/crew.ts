@@ -6,12 +6,11 @@ export const crewData = {
     {
       name: "Vlas",
       role: "Synth / Piano",
-      signature: "/assets/TTDV_White.png",
+
     },
     {
       name: "Putra",
-      role: "Bass / Backing Vocal",
-      signature: "/assets/TTPB_White.png",
+      role: "Bass "
     },
   ],
   assets: {
