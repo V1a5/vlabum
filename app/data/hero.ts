@@ -15,8 +15,12 @@ export const heroData = {
   // Pita hitam = info utama, pita merah = tagline
   ribbonBlack: [
     "NEW SONG: INDAHNYA IBUKOTA",
-    "LISTEN ON SPOTIFY & YOUTUBE",
-    "DEMO CASSETTE 2026",
+    "OUT NOW ON YOUTUBE",
+    "INDIE MUSIC • JAKARTA SELATAN",
   ],
-  ribbonRed: ["VLABUM", "LOUD IN A TINY ROOM", "FOLLOW @VLABUM.OFC"],
+  ribbonRed: [
+    "VLABUM",
+    "FROM STUDIO MAMOKIAK",
+    "FOLLOW @VLABUM.OFC",
+  ],
 };

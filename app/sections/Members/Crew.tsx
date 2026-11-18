@@ -11,7 +11,7 @@ export function Crew() {
             {/* Overlay Halftone Dots */}
             <div className="absolute inset-0 bg-halftone-dots pointer-events-none z-0" />
 
-            {/* Cahaya Merah Tengah (Diamond/Radial Glow di belakang frame) */}
+            {/* Cahaya Merah Tengah */}
             <div
                 className="absolute inset-0 pointer-events-none z-0"
                 style={{
@@ -21,7 +21,7 @@ export function Crew() {
             />
 
             {/* =========================================================
-          JUDUL SECTION: CREW (Kotak Merah Miring)
+          JUDUL SECTION: CREW / MEMBERS (Kotak Merah Miring)
       ========================================================= */}
             <div className="relative z-20 mb-12 md:mb-16">
                 <div className="bg-red border-4 border-black px-10 sm:px-14 py-2 md:py-3 -rotate-2 shadow-comic-lg">
@@ -32,56 +32,56 @@ export function Crew() {
             </div>
 
             {/* =========================================================
-          WADAH UTAMA FRAME FOTO BERDUA + NAMA SAMBUNG + INSTRUMEN
+          WADAH UTAMA FRAME FOTO BERDUA + TANDA TANGAN + INSTRUMEN
       ========================================================= */}
             <div className="relative z-20 max-w-3xl w-full flex items-center justify-center">
-
-                {/* Aset Keyboard / Piano (Pojok Kiri Atas Frame) */}
-                <div className="hidden md:block absolute -left-34 -top-36 z-30 pointer-events-none -rotate-42">
-                    <img
-                        src={crewData.assets.piano}
-                        alt="Keyboard"
-                        className="w-80 h-auto object-contain scale-125 drop-shadow-[-6px_6px_0px_#000000]"
-                    />
-                </div>
-
-                {/* Aset Bass (Pojok Kanan Bawah Frame) */}
-                <div className="hidden md:block absolute -right-44 -bottom-16 z-30 pointer-events-none rotate-105">
+                {/* Aset Bass (Pojok Kiri Atas Frame) */}
+                <div className="hidden md:block absolute -left-44 -top-16 z-30 pointer-events-none rotate-102">
                     <img
                         src={crewData.assets.bass}
                         alt="Bass Guitar"
-                        className="w-80 h-auto object-contain scale-125 drop-shadow-[5px_-5px_0px_#000000]"
+                        className="w-80 h-auto object-contain scale-125 drop-shadow-[7px_6px_0px_#000000]"
                     />
                 </div>
 
-                {/* Tanda Tangan Kiri Bawah: Vlas (TTDV_White.png) */}
-                <div className="absolute -left-2 sm:-left-20 -bottom-6 sm:-bottom-8 z-30 -rotate-6 pointer-events-none">
+                {/* Aset Piano (Pojok Kanan Bawah Frame) */}
+                <div className="hidden md:block absolute -right-34 -bottom-16 z-30 pointer-events-none -rotate-45">
                     <img
-                        src={crewData.members[0].signature}
-                        alt={`Tanda tangan ${crewData.members[0].name}`}
-                        className="h-30 sm:h-20 md:h-80 w-auto object-contain drop-shadow-[-3px_3px_0px_#000000]"
+                        src={crewData.assets.piano}
+                        alt="Keyboard"
+                        className="w-80 h-auto object-contain scale-125 drop-shadow-[-7px_10px_0px_#000000]"
                     />
                 </div>
 
-                {/* Tanda Tangan Kanan Atas: Putra (TTPB_White.png) */}
-                <div className="absolute -right-5 sm:-right-32 -top-9 sm:-top-32 z-30 rotate-4 pointer-events-none">
+                {/* Tanda Tangan Kiri Bawah: Putra Bumi (TTPB_White) */}
+                <div className="absolute -left-2 sm:-left-10 md:-left-16 bottom-6 sm:bottom-8 md:bottom-10 z-30 -rotate-6 pointer-events-none">
                     <img
                         src={crewData.members[1].signature}
                         alt={`Tanda tangan ${crewData.members[1].name}`}
-                        className="h-30 sm:h-20 md:h-80 w-auto object-contain drop-shadow-[-3px_3px_0px_#000000]"
+                        className="h-24 sm:h-32 md:h-64 w-auto object-contain drop-shadow-[-3px_3px_2px_#000000]"
+                    />
+                </div>
+
+                {/* Tanda Tangan Kanan Atas: Vlas (TTDV_White) */}
+                <div className="absolute -right-2 sm:-right-10 md:-right-16 -top-6 sm:-top-10 md:-top-12 z-30 rotate-4 pointer-events-none">
+                    <img
+                        src={crewData.members[0].signature}
+                        alt={`Tanda tangan ${crewData.members[0].name}`}
+                        className="h-24 sm:h-32 md:h-60 w-auto object-contain drop-shadow-[-3px_3px_2px_#000000]"
                     />
                 </div>
 
                 {/* =========================================================
-    FRAME FOTO UTAMA (Bingkai Polaroid Memanjang di Bawah + Tekstur Analog)
-========================================================= */}
-                <div className="relative z-20 w-full bg-pale-cream pt-3 sm:pt-4 md:pt-5 px-3 sm:px-4 md:px-5 pb-16 sm:pb-20 md:pb-28 border-4 border-black shadow-comic-lg">
+            FRAME FOTO UTAMA (Bingkai Polaroid + Tulisan Tangan di Bawah)
+        ========================================================= */}
+                <div className="relative z-20 w-full bg-pale-cream pt-3 sm:pt-4 md:pt-5 px-3 sm:px-4 md:px-5 pb-4 sm:pb-5 md:pb-6 border-4 border-black shadow-comic-lg">
+                    {/* Bingkai Dalam Foto */}
                     <div className="relative aspect-video w-full bg-black border-2 border-black overflow-hidden">
-                        {/* Foto Utama */}
+                        {/* Foto Utama: Di-zoom & digeser ke tengah (44% X, 40% Y) agar kalian berdua pas di tengah */}
                         <img
                             src={crewData.groupPhoto}
                             alt="VLABUM Crew - Vlas & Putra"
-                            className="w-full h-full object-cover contrast-110 saturate-90"
+                            className="w-full h-full object-cover object-[60%_5%] contrast-110 saturate-90"
                         />
 
                         {/* Layer 1: Tekstur Film Grain / Bintik Kertas Analog */}
@@ -92,11 +92,20 @@ export function Crew() {
                             }}
                         />
 
-                        {/* Layer 2: Halftone Halus & Vignette Pinggir Foto */}
+                        {/* Layer 2: Vignette Pinggir Foto */}
                         <div className="absolute inset-0 shadow-[inset_0_0_50px_rgba(0,0,0,0.65)] pointer-events-none" />
                     </div>
-                </div>
 
+                    {/* Caption Tulisan Tangan di Margin Bawah Polaroid */}
+                    <div className="mt-3 sm:mt-4 md:mt-5 px-2 flex flex-col sm:flex-row items-center justify-between gap-1 text-black">
+                        <span className="font-caveat text-2xl sm:text-3xl md:text-4xl font-bold tracking-wide -rotate-1">
+                            VLABUM — Vlas &amp; Putra
+                        </span>
+                        <span className="font-space-mono text-[10px] sm:text-xs font-bold uppercase tracking-widest text-neutral-700">
+                            EST. 2026 — INDONESIA
+                        </span>
+                    </div>
+                </div>
             </div>
         </section>
     );

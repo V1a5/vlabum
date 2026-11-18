@@ -103,6 +103,15 @@ export function Footer() {
               </a>
 
               <a
+                href="https://www.instagram.com/vlas1.1/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full bg-red text-pale-cream border-3 border-black py-2 px-4 text-center shadow-[-3px_3px_0px_#000000] hover:-translate-y-0.5 transition-transform"
+              >
+                INSTAGRAM (@VLAS1.1) ↗
+              </a>
+
+              <a
                 href="https://github.com/V1a5"
                 target="_blank"
                 rel="noopener noreferrer"

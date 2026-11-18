@@ -20,8 +20,8 @@ export const songsData: SongItem[] = [
     id: "indahnya-ibukota",
     number: "01",
     title: "INDAHNYA IBUKOTA",
-    duration: "02:40",
-    audioSrc: "/audio/indahnya ibu kota.mpeg",
+    duration: "03:08",
+    audioSrc: "/audio/indahnya ibu kota.wav",
     cassetteSvg: "/assets/asset-cassete_Indahnya-ibukota.svg",
     cassetteFilter: "none",
     stripColor: "#009919",
@@ -54,7 +54,8 @@ Ibu kota tercinta
 Oh, indahnya kota
 Alamnya ceria
 Semuanya pada suka`,
-    story: "-",
+    story:
+      "Sebuah surat cinta penuh sarkasme untuk Jakarta—kota dengan indeks kualitas udara yang sering juara dunia, macet yang melatih kesabaran tingkat dewa, dan bonus kabut asap kiriman saat musim karhutla tiba. Liriknya sengaja ditulis seolah-olah menghirup udara ibu kota itu menyegarkan dan alamnya penuh keceriaan, sebagai sindiran manis bagi kita yang setiap pagi berangkat kerja sambil 'mengatur napas kalau sesak'.",
   },
   {
     id: "coming-soon-02",

@@ -1,5 +1,6 @@
 "use client";
 
+import { MarqueeRibbon } from "../../components/Hero/MarqueeRibbon";
 import { heroData } from "../../data/hero";
 
 export function Hero() {
@@ -109,33 +110,26 @@ export function Hero() {
           PITA BAWAH MENYILANG (Pita Hitam Lebih Besar & Strip Tegas)
       ========================================================= */}
       <div className="relative z-30 w-full h-44 md:h-52 pointer-events-none">
-        {/* Pita 1: Merah (Miring ke Kanan Bawah, di lapisan belakang) */}
+        {/* Pita 1: Merah (Jalan ke Kanan) */}
         <div className="absolute bottom-20 md:bottom-24 -left-8 -right-8 bg-red border-y-4 border-black py-2.5 md:py-3 rotate-3 shadow-comic-lg overflow-hidden">
-          <div className="flex items-center whitespace-nowrap gap-6 font-bangers text-xl md:text-3xl tracking-wider text-black">
-            {[...heroData.ribbonRed, ...heroData.ribbonRed, ...heroData.ribbonRed].map(
-              (text, idx) => (
-                <span key={idx} className="inline-flex items-center gap-6">
-                  <span>{text}</span>
-                  <span className="text-pale-cream font-bold text-2xl">+</span>
-                </span>
-              )
-            )}
-          </div>
+          <MarqueeRibbon
+            items={heroData.ribbonRed}
+            separatorColor="text-pale-cream"
+            direction="right"
+            speedSeconds={30}
+            className="font-bangers text-xl md:text-3xl tracking-wider text-black"
+          />
         </div>
 
-        {/* Pita 2: Hitam Filmstrip (Lebih besar, dinaikkan agar strip bawah tidak terpotong) */}
+        {/* Pita 2: Hitam Filmstrip (Jalan ke Kiri) */}
         <div className="absolute bottom-6 md:bottom-5 -left-8 -right-8 bg-black border-t-4 border-pale-cream pt-3.5 md:pt-4 -rotate-2 shadow-[0_-6px_20px_rgba(0,0,0,0.8)] overflow-hidden">
-          {/* Baris Teks Marquee (Diperbesar) */}
-          <div className="flex items-center whitespace-nowrap gap-8 font-bangers text-3xl md:text-5xl tracking-wider text-pale-cream">
-            {[...heroData.ribbonBlack, ...heroData.ribbonBlack, ...heroData.ribbonBlack].map(
-              (text, idx) => (
-                <span key={idx} className="inline-flex items-center gap-8">
-                  <span>{text}</span>
-                  <span className="text-red font-bold text-3xl md:text-4xl">+</span>
-                </span>
-              )
-            )}
-          </div>
+          <MarqueeRibbon
+            items={heroData.ribbonBlack}
+            separatorColor="text-red"
+            direction="left"
+            speedSeconds={25}
+            className="font-bangers text-3xl md:text-5xl tracking-wider text-pale-cream"
+          />
 
           {/* Strip Kotak Putih-Hitam Serong / Miring */}
           <div

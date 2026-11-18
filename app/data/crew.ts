@@ -1,7 +1,7 @@
 // src/data/crew.ts
 export const crewData = {
-  title: "CREW",
-  groupPhoto: "/assets/logo/logo_black_bg.jpg",
+  title: "MEMBERS",
+  groupPhoto: "/assets/member/member_pic-5.jpeg",
   members: [
     {
       name: "Vlas",
