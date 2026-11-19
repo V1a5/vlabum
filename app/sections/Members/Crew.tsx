@@ -102,8 +102,9 @@ export function Crew() {
             />
 
             {/* Stempel Pojok dalam Foto */}
-            <div className="absolute top-3 left-3 z-20 border-2 border-red bg-black/80 px-2.5 py-0.5 -rotate-3 pointer-events-none">
-              <span className="font-space-mono text-[10px] sm:text-xs font-bold tracking-widest text-red uppercase">
+            {/* Stempel Pojok dalam Foto (Lebih kecil di <= 400px agar tidak menutupi wajah) */}
+            <div className="absolute top-1.5 left-1.5 min-[401px]:top-3 min-[401px]:left-3 z-20 border min-[401px]:border-2 border-red bg-black/80 px-1.5 py-0 min-[401px]:px-2.5 min-[401px]:py-0.5 -rotate-3 pointer-events-none">
+              <span className="font-space-mono text-[8px] min-[401px]:text-[10px] sm:text-xs font-bold tracking-wider min-[401px]:tracking-widest text-red uppercase leading-tight">
                 DUO UNIT • JKT
               </span>
             </div>
