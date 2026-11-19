@@ -1,5 +1,3 @@
-export const runtime = "nodejs";
-
 import nodemailer from "nodemailer";
 import { NextRequest, NextResponse } from "next/server";
 
