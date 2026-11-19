@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Bangers, Space_Mono, Caveat } from "next/font/google";
 import "./globals.css";
+import { Toaster } from "sonner";
 
 const bangers = Bangers({
   weight: "400",
@@ -30,8 +31,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html
       lang="en"
       className={`${bangers.variable} ${spaceMono.variable} ${caveat.variable} h-full antialiased`}
->
-      <body className="min-h-full flex flex-col">{children}</body>
+    >
+      <body className="min-h-full flex flex-col">{children}
+        <Toaster position="top-center" richColors />
+      </body>
     </html>
   );
 }
