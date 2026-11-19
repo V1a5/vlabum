@@ -72,13 +72,13 @@ export function Crew() {
         {/* =========================================================
             STIKER NAMA PENGGANTI TTD 2 (Kiri Bawah: PUTRA BUMI)
         ========================================================= */}
-        <div className="absolute -left-2 sm:-left-6 md:-left-10 bottom-14 sm:bottom-16 md:bottom-20 z-30 -rotate-6 pointer-events-none">
-          <div className="bg-red border-4 border-black px-3.5 sm:px-5 py-1.5 sm:py-2 shadow-comic">
-            <span className="block font-bangers text-2xl sm:text-3xl md:text-4xl tracking-wider text-pale-cream leading-none">
+        <div className="absolute -left-1 min-[401px]:-left-2 sm:-left-6 md:-left-10  min-[401px]:bottom-14 sm:bottom-16 md:bottom-20 z-30 -rotate-6 pointer-events-none">
+          <div className="bg-red border-2 min-[401px]:border-4 border-black px-2 min-[401px]:px-3.5 sm:px-5 py-1 min-[401px]:py-1.5 sm:py-2 shadow-comic">
+            <span className="block font-bangers text-lg min-[401px]:text-2xl sm:text-3xl md:text-4xl tracking-wider text-pale-cream leading-none">
               {crewData.members[1]?.name || "PUTRA BUMI"}
             </span>
             {crewData.members[1]?.role && (
-              <span className="block font-space-mono text-[9px] sm:text-[11px] font-bold tracking-widest text-black bg-pale-cream px-1.5 py-0.5 uppercase mt-1 inline-block">
+              <span className="inline-block font-space-mono text-[7px] min-[401px]:text-[9px] sm:text-[11px] font-bold tracking-wider min-[401px]:tracking-widest text-black bg-pale-cream px-1 min-[401px]:px-1.5 py-0 min-[401px]:py-0.5 uppercase mt-0.5 min-[401px]:mt-1 leading-tight">
                 {crewData.members[1].role}
               </span>
             )}
