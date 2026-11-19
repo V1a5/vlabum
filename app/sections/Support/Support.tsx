@@ -1,35 +1,28 @@
 "use client";
 
 import { supportData } from "../../data/support";
-
-
+import { VisitorCounter } from "../../components/Support/VisitorCounter";
 
 export function Support() {
   const hasSpotifyLink = Boolean(supportData.socials.spotify.href);
   return (
     <section
       id="Support"
-      className="relative w-full bg-black overflow-hidden pt-28 pb-24 md:pt-36 md:pb-32 px-4 flex flex-col items-center justify-center select-none"
+      className="relative w-full bg-black overflow-hidden pt-28 pb-16 md:pt-36 md:pb-20 px-4 flex flex-col items-center justify-center select-none"
     >
       {/* =========================================================
           GERIGI SEGITIGA MERAH DI BAGIAN ATAS
-      ========================================================= 
-      "radial-gradient(circle at 30% 45%, #B90B0B 0%, #7F0606 60%, #560303 100%)
-      */}
+      ========================================================= */}
       <div
         className="absolute top-0 left-0 right-0 h-8 md:h-11 pointer-events-none z-10"
         style={{
-          // WARNA: mengikuti tepi bawah section atas (diukur dari foto)
           backgroundImage:
             "linear-gradient(90deg, #830606 0%, #8A0707 10%, #8F0707 20%, #910808 30%, #8F0707 40%, #8A0707 50%, #820606 60%, #790606 70%, #6E0505 80%, #620404 90%, #570303 100%)",
-
-          // BENTUK: dua segitiga yang sama seperti sebelumnya, sekarang sebagai mask
           WebkitMaskImage:
             "linear-gradient(135deg, #000 50%, transparent 50%), linear-gradient(225deg, #000 50%, transparent 50%)",
           WebkitMaskSize: "40px 100%",
           WebkitMaskRepeat: "repeat-x",
           WebkitMaskPosition: "top left",
-
           maskImage:
             "linear-gradient(135deg, #000 50%, transparent 50%), linear-gradient(225deg, #000 50%, transparent 50%)",
           maskSize: "40px 100%",
@@ -48,9 +41,8 @@ export function Support() {
         {/* Kartu Utama Putih-Krem */}
         <div className="relative bg-[#FAFAFA] text-black border-4 border-black p-7 sm:p-10 md:p-12 -rotate-1">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-10 items-center">
-
             {/* =========================================================
-                KOLOM KIRI: ILUSTRASI HEADSET RETRO KOMIK (PENGGANTI GELAS KOPI)
+                KOLOM KIRI: ILUSTRASI HEADSET RETRO KOMIK
             ========================================================= */}
             <div className="md:col-span-5 flex flex-col items-center justify-center">
               <div className="relative flex flex-col items-center -rotate-3">
@@ -187,7 +179,7 @@ export function Support() {
                 {supportData.description}
               </p>
 
-              {/* Wadah 3 Tombol: Lebar Atas (Instagram) Sejajar dengan Gabungan Bawah (YouTube + Spotify) */}
+              {/* Wadah 3 Tombol */}
               <div className="w-full sm:w-fit grid grid-cols-1 sm:grid-cols-[auto_auto] gap-3">
                 {/* Baris 1 (Span 2 Kolom): Follow Instagram */}
                 <a
@@ -243,9 +235,18 @@ export function Support() {
                 )}
               </div>
             </div>
-
           </div>
         </div>
+      </div>
+
+      {/* =========================================================
+          FOOTER BAWAH & VISITOR COUNTER
+      ========================================================= */}
+      <div className="relative z-20 max-w-3xl w-full mt-14 pt-6 border-t-2 border-pale-cream/20 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <p className="font-space-mono text-xs text-pale-cream/80 text-center sm:text-left">
+          © 2026 VLABUM. ALL RIGHTS RESERVED.
+        </p>
+        <VisitorCounter />
       </div>
     </section>
   );
