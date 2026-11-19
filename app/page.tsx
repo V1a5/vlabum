@@ -5,6 +5,7 @@ import { About } from "./sections/About/About";
 import { Crew } from "./sections/Members/Crew";
 import { Song } from "./sections/Song/Song";
 import { Support } from "./sections/Support/Support";
+import { Contact } from "./components/Contact/Contact";
 
 export default function Home() {
   return (
@@ -16,6 +17,7 @@ export default function Home() {
         <Crew />
         <Song />
         <Support />
+        <Contact />
       </main>
       <Footer />
     </div>
