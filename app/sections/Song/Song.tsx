@@ -29,16 +29,27 @@ export function Song() {
   const [activeTab, setActiveTab] = useState<"lyrics" | "story">("lyrics");
 
   const currentSong = songsData[currentIndex];
+  const isFirstRender = useRef(true);
 
   useEffect(() => {
     if (audioRef.current) {
-      audioRef.current.volume = volume;
+      try {
+        audioRef.current.volume = volume;
+      } catch {
+        // iOS Safari mengunci audio.volume secara read-only
+      }
     }
   }, [volume]);
 
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio || !currentSong.audioSrc) return;
+
+    // Lewati audio.load() pada render pertama agar stream iOS tidak ter-reset
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
 
     audio.load();
     setCurrentTime(0);
@@ -65,10 +76,17 @@ export function Song() {
       audio.pause();
       setIsPlaying(false);
     } else {
+      audio.muted = false;
+      if (audio.readyState === 0) {
+        audio.load();
+      }
       audio
         .play()
         .then(() => setIsPlaying(true))
-        .catch(() => setIsPlaying(false));
+        .catch((err) => {
+          console.error("Audio play blocked:", err);
+          setIsPlaying(false);
+        });
     }
   };
 
@@ -145,7 +163,8 @@ export function Song() {
         src={currentSong.audioSrc}
         controlsList="nodownload noplaybackrate"
         onContextMenu={(e) => e.preventDefault()}
-        preload="metadata"
+        preload="auto"
+        playsInline
         onTimeUpdate={(e) => setCurrentTime(e.currentTarget.currentTime)}
         onLoadedMetadata={(e) => setDuration(e.currentTarget.duration)}
         onEnded={() => {

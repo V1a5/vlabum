@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 // Sesuaikan nama file di sebelah kanan dengan nama file yang kamu upload ke Supabase
 const TRACK_FILES: Record<string, string> = {
-  "indahnya-ibukota": "indahnya ibu kota.mpeg",
+  "indahnya-ibukota": "indahnya ibu kota.mp3",
 };
 
 export async function GET(
