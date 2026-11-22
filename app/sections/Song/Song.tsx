@@ -10,6 +10,15 @@ function formatTime(seconds: number): string {
   return `${String(mins).padStart(2, "0")}:${String(secs).padStart(2, "0")}`;
 }
 
+function parseDurationToSeconds(timeStr?: string): number {
+  if (!timeStr) return 0;
+  const parts = timeStr.split(":").map(Number);
+  if (parts.length === 2 && !Number.isNaN(parts[0]) && !Number.isNaN(parts[1])) {
+    return parts[0] * 60 + parts[1];
+  }
+  return 0;
+}
+
 export function Song() {
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
@@ -134,15 +143,27 @@ export function Song() {
     }
   };
 
+  const fallbackDuration = parseDurationToSeconds(currentSong.duration);
+  const effectiveDuration =
+    Number.isFinite(duration) && duration > 0 ? duration : fallbackDuration;
+
   const handleSeek = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newTime = Number(e.target.value);
     setCurrentTime(newTime);
-    if (audioRef.current) {
-      audioRef.current.currentTime = newTime;
+    const audio = audioRef.current;
+    if (audio && Number.isFinite(newTime)) {
+      try {
+        audio.currentTime = newTime;
+      } catch (err) {
+        console.error("Seek failed:", err);
+      }
     }
   };
 
-  const progressPercent = duration > 0 ? (currentTime / duration) * 100 : 0;
+  const progressPercent =
+    effectiveDuration > 0
+      ? Math.min(100, (currentTime / effectiveDuration) * 100)
+      : 0;
 
   return (
     <section
@@ -157,7 +178,6 @@ export function Song() {
       <div className="absolute inset-0 bg-halftone-dots opacity-35 pointer-events-none z-0" />
 
       {/* Elemen Audio HTML5 */}
-      {/* Elemen Audio HTML5 */}
       <audio
         ref={audioRef}
         src={currentSong.audioSrc}
@@ -166,7 +186,16 @@ export function Song() {
         preload="auto"
         playsInline
         onTimeUpdate={(e) => setCurrentTime(e.currentTarget.currentTime)}
-        onLoadedMetadata={(e) => setDuration(e.currentTarget.duration)}
+        onLoadedMetadata={(e) => {
+          if (Number.isFinite(e.currentTarget.duration)) {
+            setDuration(e.currentTarget.duration);
+          }
+        }}
+        onDurationChange={(e) => {
+          if (Number.isFinite(e.currentTarget.duration)) {
+            setDuration(e.currentTarget.duration);
+          }
+        }}
         onEnded={() => {
           setIsPlaying(false);
           setCurrentTime(0);
@@ -234,17 +263,23 @@ export function Song() {
               <div className="relative w-full h-3 bg-neutral-800 border border-neutral-600 flex items-center">
                 <div
                   className="h-full bg-pale-cream transition-all duration-100"
-                  style={{ width: `${progressPercent}%` }}
+                  style={{
+                    width: `${progressPercent}%`,
+                    backgroundColor: "#F3EFDF",
+                  }}
                 />
                 <input
                   type="range"
                   min={0}
-                  max={duration || 100}
+                  max={effectiveDuration || 100}
                   step={0.1}
                   value={currentTime}
                   onChange={handleSeek}
+                  onInput={(e) =>
+                    handleSeek(e as unknown as React.ChangeEvent<HTMLInputElement>)
+                  }
                   aria-label="Seek audio"
-                  className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                  className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
                 />
               </div>
             </div>
