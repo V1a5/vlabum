@@ -17,6 +17,10 @@ export function Hero() {
         <img
           src={heroData.bgImage}
           alt="VLABUM Background"
+          style={{
+            transform: "rotate(70deg) scale(1.1)",
+            filter: "blur(2px) grayscale(100%) contrast(125%) brightness(75%)",
+          }}
           className="w-[160vh] h-[100vw] max-w-none object-cover rotate-70 scale-110 blur-[2px] grayscale contrast-125 brightness-75"
         />
 
