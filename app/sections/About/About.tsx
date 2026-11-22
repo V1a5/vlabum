@@ -163,6 +163,7 @@ export function About() {
                   <img
                     src={aboutData.photo.src}
                     alt={aboutData.photo.caption}
+                    style={{ filter: "grayscale(100%) contrast(125%)" }}
                     className="w-full h-full object-cover object-[50%_25%] grayscale contrast-125"
                   />
                 </div>

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { Bangers, Space_Mono, Caveat } from "next/font/google";
 import "./globals.css";
+import { Bangers, Space_Mono, Caveat } from "next/font/google";
 import { Toaster } from "sonner";
 
 const bangers = Bangers({
