@@ -25,7 +25,7 @@ export const songsData: SongItem[] = [
     cassetteSvg: "/assets/asset-cassete_Indahnya-ibukota.svg",
     cassetteFilter: "none",
     stripColor: "#009919",
-    youtubeUrl: "https://youtube.com",
+    youtubeUrl: "https://youtu.be/7fUzVk9yxkE",
     spotifyUrl: "", // Kosong -> otomatis tampil abu-abu + badge SEGERA
     comingSoon: false,
     lyrics: `Bangunlah pagi lalu pergi
