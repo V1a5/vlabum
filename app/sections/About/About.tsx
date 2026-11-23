@@ -1,51 +1,49 @@
 "use client";
 
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { aboutData } from "../../data/about";
 
+gsap.registerPlugin(ScrollTrigger);
+
 const figmaAboutLetters = [
-  // HURUF A (Group 26)
   {
     char: "A",
     outerRect: { x: 17.3, y: 83.72, w: 114, h: 160.04, bg: "#FFFFFF", rotate: 3.08 },
     innerRect: { x: 32.29, y: 96.44, w: 96.13, h: 145.83, bg: "#000000", rotate: 0.45 },
     text: { x: 39.04, y: 108.18, w: 83.1, h: 135.24, color: "#FFFFFF", rotate: -1.09 },
   },
-  // HURUF b (Group 29)
   {
     char: "b",
     outerRect: { x: 119.02, y: 66.89, w: 114, h: 160.04, bg: "#000000", rotate: -5.62 },
     innerRect: { x: 128.13, y: 73.99, w: 96.13, h: 145.83, bg: "#FFFFFF", rotate: -6.24 },
     text: { x: 135.76, y: 85.76, w: 78.21, h: 124.65, color: "#000000", rotate: -6.24 },
   },
-  // HURUF o (Group 28)
   {
     char: "o",
     outerRect: { x: 220.05, y: 63.61, w: 114, h: 160.04, bg: "#FFFFFF", rotate: 3.08 },
     innerRect: { x: 229.43, y: 70.84, w: 96.13, h: 145.83, bg: "#E10600", rotate: 3.17 },
     text: { x: 225.35, y: 71.73, w: 96.13, h: 135.24, color: "#FFFFFF", rotate: -12.19 },
   },
-  // HURUF u (Group 27)
   {
     char: "u",
     outerRect: { x: 311.78, y: 43.42, w: 114, h: 165.35, bg: "#FFFFFF", rotate: -3.94 },
     innerRect: { x: 321.26, y: 49.53, w: 97.76, h: 150.71, bg: "#000000", rotate: -4.89 },
     text: { x: 323.25, y: 62.46, w: 84.73, h: 124.65, color: "#FFFFFF", rotate: -10.25 },
   },
-  // HURUF t (Group 30)
   {
     char: "t",
     outerRect: { x: 423.18, y: 53.89, w: 114, h: 160.04, bg: "#000000", rotate: -4.08 },
     innerRect: { x: 426.57, y: 60.2, w: 96.13, h: 145.83, bg: "#FFFFFF", rotate: -6.24 },
     text: { x: 419.96, y: 64.53, w: 96.13, h: 135.24, color: "#000000", rotate: -6.24 },
   },
-  // HURUF u (Group 31)
   {
     char: "u",
     outerRect: { x: 560.34, y: 20.63, w: 114, h: 165.35, bg: "#FFFFFF", rotate: -8.07 },
     innerRect: { x: 570.27, y: 27.22, w: 97.76, h: 150.71, bg: "#E10600", rotate: -9.03 },
     text: { x: 573.68, y: 40.99, w: 84.73, h: 124.65, color: "#FFFFFF", rotate: -14.38 },
   },
-  // HURUF S (Group 32)
   {
     char: "S",
     outerRect: { x: 672.64, y: 7.58, w: 114, h: 160.04, bg: "#FFFFFF", rotate: -0.65 },
@@ -55,8 +53,66 @@ const figmaAboutLetters = [
 ];
 
 export function About() {
+  const sectionRef = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({
+        defaults: { ease: "power3.out", duration: 0.8 },
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 80%",
+          once: true,
+        },
+      });
+
+      // 1. Kartu manifesto utama naik halus
+      tl.fromTo(
+        ".about-card",
+        { y: 45, autoAlpha: 0 },
+        { y: 0, autoAlpha: 1, clearProps: "transform" }
+      )
+        // 2. Judul "About uS" muncul halus
+        .fromTo(
+          ".about-title",
+          { y: -25, autoAlpha: 0 },
+          { y: 0, autoAlpha: 1, duration: 0.7, clearProps: "transform" },
+          "-=0.55"
+        )
+        // 3. Instrumen Bass & Gitar masuk dari kiri dan kanan bersamaan
+        .fromTo(
+          ".about-bass",
+          { x: -50, autoAlpha: 0 },
+          { x: 0, autoAlpha: 1, clearProps: "transform" },
+          "-=0.45"
+        )
+        .fromTo(
+          ".about-guitar",
+          { x: 50, autoAlpha: 0 },
+          { x: 0, autoAlpha: 1, clearProps: "transform" },
+          "<"
+        )
+        // 4. Foto band & teks manifesto muncul bergantian
+        .fromTo(
+          ".about-photo",
+          { x: -30, autoAlpha: 0 },
+          { x: 0, autoAlpha: 1, duration: 0.7, clearProps: "transform" },
+          "-=0.5"
+        )
+        .fromTo(
+          ".about-content",
+          { y: 25, autoAlpha: 0 },
+          { y: 0, autoAlpha: 1, duration: 0.7, clearProps: "transform" },
+          "-=0.5"
+        );
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
     <section
+      ref={sectionRef}
       id="About"
       className="relative w-full min-h-screen bg-background overflow-hidden flex items-center justify-center py-16 sm:py-24 md:py-32 px-4 sm:px-6 select-none"
     >
@@ -67,12 +123,10 @@ export function About() {
         <div className="absolute -bottom-24 sm:-bottom-32 -left-20 -right-20 h-[44%] sm:h-[48%] bg-yellow -rotate-12" />
       </div>
 
-      {/* WADAH UTAMA KARTU MANIFESTO + JUDUL + INSTRUMEN */}
+      {/* WADAH UTAMA */}
       <div className="relative z-10 max-w-4xl w-full mt-4 sm:mt-8 md:mt-12">
-        {/* =========================================================
-            JUDUL ABOUT US (Responsif mulai 375px hingga Desktop)
-        ========================================================= */}
-        <div className="relative z-30 w-[290px] sm:w-[460px] md:w-[560px] lg:w-[650px] left-0 sm:-left-4 md:-left-10 lg:-left-28 -mb-5 sm:-mb-9 md:-mb-12 lg:-mb-16 pointer-events-none">
+        {/* JUDUL ABOUT US */}
+        <div className="about-title opacity-0 relative z-30 w-[290px] sm:w-[460px] md:w-[560px] lg:w-[650px] left-0 sm:-left-4 md:-left-10 lg:-left-28 -mb-5 sm:-mb-9 md:-mb-12 lg:-mb-16 pointer-events-none">
           <svg
             viewBox="0 0 795 250"
             className="w-full h-auto overflow-visible block"
@@ -123,10 +177,8 @@ export function About() {
           </svg>
         </div>
 
-        {/* =========================================================
-            ASET BASS (KIRI BAWAH KARTU - Muncul mulai Tablet 640px/700px)
-        ========================================================= */}
-        <div className="hidden sm:block absolute -left-24 md:-left-36 lg:-left-100 -bottom-20 md:-bottom-28 lg:-bottom-56 z-30 pointer-events-none rotate-60">
+        {/* ASET BASS */}
+        <div className="about-bass opacity-0 hidden sm:block absolute -left-24 md:-left-36 lg:-left-100 -bottom-20 md:-bottom-28 lg:-bottom-56 z-30 pointer-events-none rotate-60">
           <img
             src={aboutData.assets.bass}
             alt="Bass Guitar"
@@ -134,10 +186,8 @@ export function About() {
           />
         </div>
 
-        {/* =========================================================
-            ASET GITAR (KANAN ATAS KARTU - Muncul mulai Tablet 640px/700px)
-        ========================================================= */}
-        <div className="hidden sm:block absolute -right-24 md:-right-36 lg:-right-90 -top-6 md:top-4 lg:top-16 z-10 pointer-events-none -rotate-80">
+        {/* ASET GITAR */}
+        <div className="about-guitar opacity-0 hidden sm:block absolute -right-24 md:-right-36 lg:-right-90 -top-6 md:top-4 lg:top-16 z-10 pointer-events-none -rotate-80">
           <img
             src={aboutData.assets.guitar}
             alt="Electric Guitar"
@@ -145,19 +195,15 @@ export function About() {
           />
         </div>
 
-        {/* =========================================================
-            KARTU MANIFESTO UTAMA (KREM)
-        ========================================================= */}
-        <div className="relative z-20 bg-pale-cream text-black border-4 border-black shadow-comic-lg p-5 sm:p-8 md:p-12">
-          {/* 3 Selotip (Masking Tape - Aman dari overflow di layar 375px) */}
+        {/* KARTU MANIFESTO UTAMA */}
+        <div className="about-card opacity-0 relative z-20 bg-pale-cream text-black border-4 border-black shadow-comic-lg p-5 sm:p-8 md:p-12">
           <div className="absolute -top-3 left-8 sm:left-12 md:left-24 w-16 sm:w-20 md:w-24 h-5 sm:h-6 bg-[#D6CEB8]/90 border border-black/20 -rotate-12 shadow-sm pointer-events-none" />
           <div className="absolute -top-3 right-3 sm:-right-4 md:-right-5 w-16 sm:w-20 md:w-24 h-5 sm:h-6 bg-[#D6CEB8]/90 border border-black/20 rotate-18 shadow-sm pointer-events-none" />
           <div className="absolute -bottom-3 right-3 sm:-right-4 w-16 sm:w-20 md:w-24 h-5 sm:h-6 bg-[#D6CEB8]/90 border border-black/20 -rotate-18 shadow-sm pointer-events-none" />
 
-          {/* Grid Konten Dalam Kartu */}
           <div className="grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-8 md:gap-10 items-center">
-            {/* KOLOM KIRI: Bingkai Foto Band */}
-            <div className="md:col-span-5 flex justify-center">
+            {/* KOLOM KIRI */}
+            <div className="about-photo opacity-0 md:col-span-5 flex justify-center">
               <div className="w-full max-w-[260px] sm:max-w-[300px] border-4 border-black bg-black shadow-comic -rotate-1">
                 <div className="aspect-square w-full overflow-hidden bg-neutral-900">
                   <img
@@ -175,8 +221,8 @@ export function About() {
               </div>
             </div>
 
-            {/* KOLOM KANAN: Teks Manifesto */}
-            <div className="md:col-span-7 flex flex-col items-start">
+            {/* KOLOM KANAN */}
+            <div className="about-content opacity-0 md:col-span-7 flex flex-col items-start">
               <span className="inline-block bg-black text-pale-cream font-space-mono text-[10px] sm:text-xs font-bold tracking-widest px-2.5 py-1 uppercase mb-2.5 sm:mb-3">
                 {aboutData.badge}
               </span>

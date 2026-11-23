@@ -14,7 +14,7 @@ export const contactData = {
   channels: [
     {
       type: "phone" as const,
-      label: "WHATSAPP / BOOKING",
+      label: "WHATSAPP",
       value: "+62 859-5987-2110",
       href: "https://wa.me/6285959872110",
       badgeBg: "bg-red text-pale-cream",

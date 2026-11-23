@@ -1,9 +1,13 @@
 "use client";
 
 import { Phone, Mail, Send } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { toast } from "sonner";
 import { contactData } from "../../data/contact";
+
+gsap.registerPlugin(ScrollTrigger);
 
 function InstagramIcon({ className }: { className?: string }) {
   return (
@@ -29,6 +33,8 @@ const iconMap = {
 };
 
 export function Contact() {
+  const sectionRef = useRef<HTMLElement | null>(null);
+
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -39,6 +45,32 @@ export function Contact() {
   });
 
   const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({
+        defaults: { ease: "power3.out", duration: 0.75 },
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 80%",
+          once: true,
+        },
+      });
+
+      tl.fromTo(
+        ".contact-info",
+        { x: -40, autoAlpha: 0 },
+        { x: 0, autoAlpha: 1, clearProps: "transform" }
+      ).fromTo(
+        ".contact-form",
+        { x: 40, autoAlpha: 0 },
+        { x: 0, autoAlpha: 1, clearProps: "transform" },
+        "-=0.55"
+      );
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -95,14 +127,14 @@ export function Contact() {
 
   return (
     <section
+      ref={sectionRef}
       id="Contact"
       className="relative w-full bg-pale-cream text-black py-16 sm:py-24 px-4 overflow-hidden border-t-4 border-black"
     >
       <div className="max-w-6xl mx-auto">
-        {/* Ubah items-start -> items-center agar form kanan tepat di tengah atas-bawah */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
           {/* KOLOM KIRI: INFO & KARTU KONTAK ZINE */}
-          <div className="lg:col-span-5">
+          <div className="contact-info opacity-0 lg:col-span-5">
             <div className="inline-block bg-black text-pale-cream border-2 border-black px-3 py-1 shadow-[-3px_3px_0px_#D90D0D] -rotate-2 mb-4">
               <span className="font-space-mono text-xs font-bold tracking-widest uppercase">
                 {contactData.badge}
@@ -152,7 +184,7 @@ export function Contact() {
           </div>
 
           {/* KOLOM KANAN: FORMULIR PESAN GAYA KOMIK */}
-          <div className="lg:col-span-7 relative">
+          <div className="contact-form opacity-0 lg:col-span-7 relative">
             <div className="hidden sm:block absolute inset-0 bg-red border-4 border-black translate-x-3 translate-y-3 pointer-events-none" />
 
             <div className="relative bg-[#FAFAFA] border-4 border-black p-5 sm:p-8 shadow-[-5px_5px_0px_#D90D0D] sm:shadow-none">

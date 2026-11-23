@@ -1,12 +1,59 @@
 "use client";
 
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { supportData } from "../../data/support";
 import { VisitorCounter } from "../../components/Support/VisitorCounter";
 
+gsap.registerPlugin(ScrollTrigger);
+
 export function Support() {
+  const sectionRef = useRef<HTMLElement | null>(null);
   const hasSpotifyLink = Boolean(supportData.socials.spotify.href);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({
+        defaults: { ease: "power3.out", duration: 0.75 },
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 80%",
+          once: true,
+        },
+      });
+
+      tl.fromTo(
+        ".support-card",
+        { y: 40, autoAlpha: 0 },
+        { y: 0, autoAlpha: 1, clearProps: "transform" }
+      )
+        .fromTo(
+          ".support-headset",
+          { scale: 0.9, autoAlpha: 0 },
+          { scale: 1, autoAlpha: 1, duration: 0.65, clearProps: "transform" },
+          "-=0.45"
+        )
+        .fromTo(
+          ".support-content",
+          { x: 25, autoAlpha: 0 },
+          { x: 0, autoAlpha: 1, duration: 0.65, clearProps: "transform" },
+          "-=0.5"
+        )
+        .fromTo(
+          ".support-footer",
+          { y: 20, autoAlpha: 0 },
+          { y: 0, autoAlpha: 1, duration: 0.6, clearProps: "transform" },
+          "-=0.4"
+        );
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
     <section
+      ref={sectionRef}
       id="Support"
       className="relative w-full bg-black overflow-hidden pt-28 pb-16 md:pt-36 md:pb-20 px-4 flex flex-col items-center justify-center select-none"
     >
@@ -34,7 +81,7 @@ export function Support() {
       {/* =========================================================
           WADAH KARTU UTAMA + BAYANGAN BLOK MERAH
       ========================================================= */}
-      <div className="relative z-20 max-w-3xl w-full mt-4">
+      <div className="support-card opacity-0 relative z-20 max-w-3xl w-full mt-4">
         {/* Blok Bayangan Merah di Belakang Kartu (Geser Kanan & Bawah) */}
         <div className="absolute inset-0 bg-red border-4 border-black translate-x-3 translate-y-3 md:translate-x-4 md:translate-y-4 -rotate-1 pointer-events-none" />
 
@@ -44,7 +91,7 @@ export function Support() {
             {/* =========================================================
                 KOLOM KIRI: ILUSTRASI HEADSET RETRO KOMIK
             ========================================================= */}
-            <div className="md:col-span-5 flex flex-col items-center justify-center">
+            <div className="support-headset opacity-0 md:col-span-5 flex flex-col items-center justify-center">
               <div className="relative flex flex-col items-center -rotate-3">
                 {/* Gelombang Suara Kecil di Atas Headset */}
                 <div className="flex items-end gap-1.5 mb-2">
@@ -161,7 +208,7 @@ export function Support() {
             {/* =========================================================
                 KOLOM KANAN: TEKS AJAKAN & TOMBOL SOSIAL MEDIA
             ========================================================= */}
-            <div className="md:col-span-7 flex flex-col items-start">
+            <div className="support-content opacity-0 md:col-span-7 flex flex-col items-start">
               {/* Badge Merah Atas */}
               <div className="inline-block bg-red text-pale-cream border-2 border-black px-3 py-1 shadow-[-3px_3px_0px_#000000] mb-3.5">
                 <span className="font-space-mono text-[10px] sm:text-xs font-bold tracking-wider uppercase">
@@ -242,7 +289,7 @@ export function Support() {
       {/* =========================================================
           FOOTER BAWAH & VISITOR COUNTER
       ========================================================= */}
-      <div className="relative z-20 max-w-3xl w-full mt-14 pt-6 border-t-2 border-pale-cream/20 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div className="support-footer opacity-0 relative z-20 max-w-3xl w-full mt-14 pt-6 border-t-2 border-pale-cream/20 flex flex-col sm:flex-row items-center justify-between gap-4">
         <p className="font-space-mono text-xs text-pale-cream/80 text-center sm:text-left">
           © 2026 VLABUM. ALL RIGHTS RESERVED.
         </p>

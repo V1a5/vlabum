@@ -1,15 +1,49 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export function Footer() {
+  const footerRef = useRef<HTMLElement | null>(null);
   const [isCardOpen, setIsCardOpen] = useState(false);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({
+        defaults: { ease: "power3.out", duration: 0.7 },
+        scrollTrigger: {
+          trigger: footerRef.current,
+          start: "top 92%",
+          once: true,
+        },
+      });
+
+      tl.fromTo(
+        ".footer-left",
+        { y: 24, autoAlpha: 0 },
+        { y: 0, autoAlpha: 1, clearProps: "transform" }
+      ).fromTo(
+        ".footer-right",
+        { y: 24, autoAlpha: 0 },
+        { y: 0, autoAlpha: 1, clearProps: "transform" },
+        "-=0.45"
+      );
+    }, footerRef);
+
+    return () => ctx.revert();
+  }, []);
 
   return (
     <>
-      <footer className="flex flex-col md:flex-row justify-between bg-black items-start md:items-center text-white py-8 border-t-2 border-white px-5 gap-6 select-none">
+      <footer
+        ref={footerRef}
+        className="flex flex-col md:flex-row justify-between bg-black items-start md:items-center text-white py-8 border-t-2 border-white px-5 gap-6 select-none"
+      >
         {/* KIRI: Info Band & Sosmed */}
-        <div className="container font-space-mono mx-auto px-4">
+        <div className="footer-left opacity-0 container font-space-mono mx-auto px-4">
           <h1 className="text-2xl mb-2">VLABUM+ OFFICIAL</h1>
           <p className="text-grey-100 text-sm">
             Indie Band • Jakarta Selatan, Indonesia <br />
@@ -47,7 +81,7 @@ export function Footer() {
         <button
           type="button"
           onClick={() => setIsCardOpen(true)}
-          className="group container mx-auto px-4 font-space-mono bg-background w-full md:w-1/2 py-4 mt-2 md:mt-0 border-dashed border-2 border-grey-100 hover:border-yellow transition-all cursor-pointer flex items-center justify-between gap-3 text-left"
+          className="footer-right opacity-0 group container mx-auto px-4 font-space-mono bg-background w-full md:w-1/2 py-4 mt-2 md:mt-0 border-dashed border-2 border-grey-100 hover:border-yellow transition-all cursor-pointer flex items-center justify-between gap-3 text-left"
         >
           <p className="text-sm text-grey-100">
             Website crafted by{" "}

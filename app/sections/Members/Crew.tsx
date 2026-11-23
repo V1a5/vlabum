@@ -1,10 +1,63 @@
 "use client";
 
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { crewData } from "../../data/crew";
 
+gsap.registerPlugin(ScrollTrigger);
+
 export function Crew() {
+  const sectionRef = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({
+        defaults: { ease: "power3.out", duration: 0.75 },
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 80%",
+          once: true,
+        },
+      });
+
+      tl.fromTo(
+        ".crew-title",
+        { y: 30, autoAlpha: 0 },
+        { y: 0, autoAlpha: 1, clearProps: "transform" }
+      )
+        .fromTo(
+          ".crew-frame",
+          { y: 40, autoAlpha: 0 },
+          { y: 0, autoAlpha: 1, clearProps: "transform" },
+          "-=0.45"
+        )
+        .fromTo(
+          ".crew-bass",
+          { x: -50, autoAlpha: 0 },
+          { x: 0, autoAlpha: 1, clearProps: "transform" },
+          "-=0.45"
+        )
+        .fromTo(
+          ".crew-piano",
+          { x: 50, autoAlpha: 0 },
+          { x: 0, autoAlpha: 1, clearProps: "transform" },
+          "<"
+        )
+        .fromTo(
+          ".crew-sticker",
+          { scale: 0.85, autoAlpha: 0 },
+          { scale: 1, autoAlpha: 1, duration: 0.55, stagger: 0.15, clearProps: "transform" },
+          "-=0.35"
+        );
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
     <section
+      ref={sectionRef}
       id="Crew"
       className="relative w-full min-h-screen bg-background border-t-8 border-red overflow-hidden flex flex-col items-center justify-center py-20 sm:py-24 md:py-32 px-4 select-none"
     >
@@ -20,10 +73,8 @@ export function Crew() {
         }}
       />
 
-      {/* =========================================================
-          JUDUL SECTION: CREW / MEMBERS (Kotak Merah Miring)
-      ========================================================= */}
-      <div className="relative z-20 mb-12 md:mb-16">
+      {/* JUDUL SECTION: CREW / MEMBERS */}
+      <div className="crew-title opacity-0 relative z-20 mb-12 md:mb-16">
         <div className="bg-red border-4 border-black px-10 sm:px-14 py-2 md:py-3 -rotate-2 shadow-comic-lg">
           <h2 className="font-bangers text-5xl sm:text-6xl md:text-7xl tracking-wider text-pale-cream uppercase leading-none">
             {crewData.title}
@@ -31,12 +82,10 @@ export function Crew() {
         </div>
       </div>
 
-      {/* =========================================================
-          WADAH UTAMA FRAME FOTO BERDUA + STIKER NAMA + INSTRUMEN
-      ========================================================= */}
+      {/* WADAH UTAMA FRAME FOTO BERDUA + STIKER NAMA + INSTRUMEN */}
       <div className="relative z-20 max-w-3xl w-full flex items-center justify-center">
         {/* Aset Bass (Pojok Kiri Atas Frame) */}
-        <div className="hidden sm:block absolute -left-24 md:-left-44 -top-12 md:-top-16 z-30 pointer-events-none rotate-102">
+        <div className="crew-bass opacity-0 hidden sm:block absolute -left-24 md:-left-44 -top-12 md:-top-16 z-30 pointer-events-none rotate-102">
           <img
             src={crewData.assets.bass}
             alt="Bass Guitar"
@@ -45,7 +94,7 @@ export function Crew() {
         </div>
 
         {/* Aset Piano (Pojok Kanan Bawah Frame) */}
-        <div className="hidden sm:block absolute -right-20 md:-right-34 -bottom-12 md:-bottom-16 z-30 pointer-events-none -rotate-45">
+        <div className="crew-piano opacity-0 hidden sm:block absolute -right-20 md:-right-34 -bottom-12 md:-bottom-16 z-30 pointer-events-none -rotate-45">
           <img
             src={crewData.assets.piano}
             alt="Keyboard"
@@ -53,10 +102,8 @@ export function Crew() {
           />
         </div>
 
-        {/* =========================================================
-            STIKER NAMA PENGGANTI TTD 1 (Kanan Atas: VLAS)
-        ========================================================= */}
-        <div className="absolute -right-2 sm:-right-6 md:-right-10 -top-6 sm:-top-8 z-30 rotate-6 pointer-events-none">
+        {/* STIKER NAMA 1 (Kanan Atas: VLAS) */}
+        <div className="crew-sticker opacity-0 absolute -right-2 sm:-right-6 md:-right-10 -top-6 sm:-top-8 z-30 rotate-6 pointer-events-none">
           <div className="bg-black border-4 border-pale-cream px-3.5 sm:px-5 py-1.5 sm:py-2 shadow-comic">
             <span className="block font-bangers text-2xl sm:text-3xl md:text-4xl tracking-wider text-pale-cream leading-none">
               {crewData.members[0]?.name || "VLAS"}
@@ -69,10 +116,8 @@ export function Crew() {
           </div>
         </div>
 
-        {/* =========================================================
-            STIKER NAMA PENGGANTI TTD 2 (Kiri Bawah: PUTRA BUMI)
-        ========================================================= */}
-        <div className="absolute -left-1 min-[401px]:-left-2 sm:-left-6 md:-left-10  min-[401px]:bottom-14 sm:bottom-16 md:bottom-20 z-30 -rotate-6 pointer-events-none">
+        {/* STIKER NAMA 2 (Kiri Bawah: PUTRA BUMI) */}
+        <div className="crew-sticker opacity-0 absolute -left-1 min-[401px]:-left-2 sm:-left-6 md:-left-10 min-[401px]:bottom-14 sm:bottom-16 md:bottom-20 z-30 -rotate-6 pointer-events-none">
           <div className="bg-red border-2 min-[401px]:border-4 border-black px-2 min-[401px]:px-3.5 sm:px-5 py-1 min-[401px]:py-1.5 sm:py-2 shadow-comic">
             <span className="block font-bangers text-lg min-[401px]:text-2xl sm:text-3xl md:text-4xl tracking-wider text-pale-cream leading-none">
               {crewData.members[1]?.name || "PUTRA BUMI"}
@@ -85,31 +130,23 @@ export function Crew() {
           </div>
         </div>
 
-        {/* =========================================================
-            FRAME FOTO UTAMA (Bingkai Polaroid + Selotip + Tulisan Tangan)
-        ========================================================= */}
-        <div className="relative z-20 w-full bg-pale-cream pt-3 sm:pt-4 md:pt-5 px-3 sm:px-4 md:px-5 pb-4 sm:pb-5 md:pb-6 border-4 border-black shadow-comic-lg">
-          {/* Selotip Kiri Atas & Kanan Bawah agar nuansa tempelan zine makin hidup */}
+        {/* FRAME FOTO UTAMA */}
+        <div className="crew-frame opacity-0 relative z-20 w-full bg-pale-cream pt-3 sm:pt-4 md:pt-5 px-3 sm:px-4 md:px-5 pb-4 sm:pb-5 md:pb-6 border-4 border-black shadow-comic-lg">
           <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 w-24 sm:w-28 h-6 bg-[#D6CEB8]/90 border border-black/20 -rotate-2 shadow-sm pointer-events-none z-30" />
 
-          {/* Bingkai Dalam Foto */}
           <div className="relative aspect-video w-full bg-black border-2 border-black overflow-hidden">
-            {/* Foto Utama */}
             <img
               src={crewData.groupPhoto}
               alt="VLABUM Crew - Vlas & Putra"
               className="w-full h-full object-cover object-[60%_5%] contrast-110 saturate-90"
             />
 
-            {/* Stempel Pojok dalam Foto */}
-            {/* Stempel Pojok dalam Foto (Lebih kecil di <= 400px agar tidak menutupi wajah) */}
             <div className="absolute top-1.5 left-1.5 min-[401px]:top-3 min-[401px]:left-3 z-20 border min-[401px]:border-2 border-red bg-black/80 px-1.5 py-0 min-[401px]:px-2.5 min-[401px]:py-0.5 -rotate-3 pointer-events-none">
               <span className="font-space-mono text-[8px] min-[401px]:text-[10px] sm:text-xs font-bold tracking-wider min-[401px]:tracking-widest text-red uppercase leading-tight">
                 DUO UNIT • JKT
               </span>
             </div>
 
-            {/* Layer 1: Tekstur Film Grain / Bintik Kertas Analog */}
             <div
               className="absolute inset-0 opacity-35 mix-blend-overlay pointer-events-none"
               style={{
@@ -117,11 +154,9 @@ export function Crew() {
               }}
             />
 
-            {/* Layer 2: Vignette Pinggir Foto */}
             <div className="absolute inset-0 shadow-[inset_0_0_50px_rgba(0,0,0,0.65)] pointer-events-none" />
           </div>
 
-          {/* Caption Tulisan Tangan di Margin Bawah Polaroid */}
           <div className="mt-3 sm:mt-4 md:mt-5 px-2 flex flex-col sm:flex-row items-center justify-between gap-1 text-black">
             <span className="font-caveat text-2xl sm:text-3xl md:text-4xl font-bold tracking-wide -rotate-1">
               VLABUM — Vlas &amp; Putra Bumi

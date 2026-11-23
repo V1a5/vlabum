@@ -2,6 +2,10 @@
 
 import { useEffect, useRef, useState } from "react";
 import { songsData } from "../../data/song";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 function formatTime(seconds: number): string {
   if (!Number.isFinite(seconds) || seconds < 0) return "00:00";
@@ -20,7 +24,47 @@ function parseDurationToSeconds(timeStr?: string): number {
 }
 
 export function Song() {
+  const sectionRef = useRef<HTMLElement | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({
+        defaults: { ease: "power3.out", duration: 0.75 },
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 80%",
+          once: true,
+        },
+      });
+
+      tl.fromTo(
+        ".song-deck",
+        { x: -40, autoAlpha: 0 },
+        { x: 0, autoAlpha: 1, clearProps: "transform" }
+      )
+        .fromTo(
+          ".song-list",
+          { x: 40, autoAlpha: 0 },
+          { x: 0, autoAlpha: 1, clearProps: "transform" },
+          "-=0.5"
+        )
+        .fromTo(
+          ".song-lyrics",
+          { y: 30, autoAlpha: 0 },
+          { y: 0, autoAlpha: 1, clearProps: "transform" },
+          "-=0.45"
+        )
+        .fromTo(
+          ".song-platforms",
+          { y: 25, autoAlpha: 0 },
+          { y: 0, autoAlpha: 1, clearProps: "transform" },
+          "-=0.45"
+        );
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
 
   // Daftar lagu yang sudah rilis (untuk navigasi Prev/Next/Ended)
   const playableIndices = songsData
@@ -167,6 +211,7 @@ export function Song() {
 
   return (
     <section
+      ref={sectionRef}
       id="Song"
       className="relative w-full min-h-screen overflow-hidden flex items-center justify-center py-20 md:py-28 px-4 select-none"
       style={{
@@ -211,8 +256,8 @@ export function Song() {
             KOLOM KIRI (6 Kolom): CASSETTE DECK PLAYER + PLATFORM LINKS
         ========================================================= */}
         <div className="lg:col-span-6 flex flex-col justify-between">
-          {/* Kotak Tape Deck Utama (Diperbesar & Proporsional) */}
-          <div className="bg-black border-4 border-white p-5 sm:p-6 md:p-7 shadow-[10px_10px_0px_#000000]">
+          {/* Kotak Tape Deck Utama */}
+          <div className="song-deck opacity-0 bg-black border-4 border-white p-5 sm:p-6 md:p-7 shadow-[10px_10px_0px_#000000]">
 
             {/* Header Status Bar Deck */}
             <div className="flex items-center justify-between font-space-mono text-xs sm:text-sm mb-3.5 px-1">
@@ -327,14 +372,11 @@ export function Song() {
             <div className="flex items-center gap-3 font-space-mono text-xs sm:text-sm text-neutral-300">
               <span>Volume</span>
               <div className="relative flex-1 h-2.5 bg-neutral-700 rounded-full flex items-center">
-                {/* Garis Merah Terisi */}
                 <div
                   className="h-full bg-red rounded-full"
                   style={{ width: `${volume * 100}%` }}
                 />
 
-                {/* 👇 INI BOLA (KNOB) VOLUME-NYA */}
-                {/* Bola Volume dengan posisi absolute agar selalu pas di ujung garis merah */}
                 <div
                   className="absolute w-4 h-4 bg-red border-2 border-white rounded-full shadow pointer-events-none"
                   style={{ left: `calc(${volume * 100}% - 8px)` }}
@@ -355,8 +397,8 @@ export function Song() {
             </div>
           </div>
 
-          {/* Bagian Bawah Kiri: LISTEN TO THIS SONG ON (YouTube & Spotify Segera) */}
-          <div className="mt-7">
+          {/* Bagian Bawah Kiri: LISTEN TO THIS SONG ON */}
+          <div className="song-platforms opacity-0 mt-7">
             <div className="inline-block bg-black border-2 border-white px-4 py-1.5 mb-3.5 shadow-[4px_4px_0px_#000000]">
               <span className="font-bangers text-lg sm:text-xl tracking-wider text-pale-cream uppercase">
                 LISTEN TO THIS SONG ON
@@ -364,7 +406,6 @@ export function Song() {
             </div>
 
             <div className="grid grid-cols-2 gap-4 sm:gap-5">
-              {/* Tombol YouTube (Pakai yt_logo_fullcolor_almostblack_digital.png) */}
               <a
                 href={currentSong.youtubeUrl || "#"}
                 target="_blank"
@@ -378,7 +419,6 @@ export function Song() {
                 />
               </a>
 
-              {/* Tombol Spotify (Abu-Abu Nonaktif + Stiker SEGERA di Pojok Kanan Atas) */}
               {currentSong.spotifyUrl ? (
                 <a
                   href={currentSong.spotifyUrl}
@@ -394,12 +434,10 @@ export function Song() {
                 </a>
               ) : (
                 <div className="relative bg-[#DCDCDC] border-4 border-neutral-500 py-4 px-5 shadow-[4px_4px_0px_rgba(0,0,0,0.45)] flex items-center justify-center gap-2 cursor-not-allowed">
-                  {/* Stiker Hitam Miring: SEGERA */}
                   <span className="absolute -top-3.5 -right-2.5 bg-black text-white font-bangers text-sm sm:text-base tracking-wider px-3 py-0.5 border-2 border-white rotate-8 shadow-md uppercase z-10">
                     SEGERA
                   </span>
 
-                  {/* Logo Spotify Redup / Abu-Abu */}
                   <div className="flex items-center gap-2 opacity-45 grayscale">
                     <img
                       src="/assets/Spotify.png"
@@ -419,8 +457,7 @@ export function Song() {
         <div className="lg:col-span-6 flex flex-col justify-between gap-6">
 
           {/* KOTAK 1: LIST SONG */}
-          <div className="bg-pale-cream text-black border-4 border-black shadow-comic-lg overflow-hidden">
-            {/* Header Hitam LIST SONG */}
+          <div className="song-list opacity-0 bg-pale-cream text-black border-4 border-black shadow-comic-lg overflow-hidden">
             <div className="bg-black text-pale-cream px-5 py-3 flex items-center justify-between border-b-4 border-black">
               <h2 className="font-bangers text-3xl sm:text-4xl tracking-wider uppercase leading-none">
                 LIST SONG
@@ -457,7 +494,6 @@ export function Song() {
               </div>
             </div>
 
-            {/* MODE 1: TAMPILAN BARIS KASET TUMPUK */}
             {viewMode === "list" ? (
               <div className="p-4 sm:p-5 flex flex-col gap-3">
                 {songsData.map((song, idx) => {
@@ -480,12 +516,10 @@ export function Song() {
                           : "hover:translate-x-1 opacity-95 hover:opacity-100 cursor-pointer"
                         }`}
                     >
-                      {/* Nomor Urut Kiri */}
                       <span className="bg-black text-pale-cream font-space-mono text-xs font-bold px-2 py-1">
                         {song.number}
                       </span>
 
-                      {/* Label Tengah */}
                       <div
                         className={`flex-1 border-2 border-black px-3 py-1 flex items-center justify-between ${isLocked ? "bg-neutral-300" : "bg-pale-cream"
                           }`}
@@ -508,14 +542,12 @@ export function Song() {
                         )}
                       </div>
 
-                      {/* Lubang Kaset Kanan */}
                       <span className="w-3.5 h-3.5 rounded-full bg-black mr-1 shrink-0" />
                     </button>
                   );
                 })}
               </div>
             ) : (
-              /* MODE 2: TAMPILAN GRID KARTU KASET */
               <div className="p-4 sm:p-5 grid grid-cols-2 sm:grid-cols-3 gap-4">
                 {songsData.map((song, idx) => {
                   const isActive = idx === currentIndex && !song.comingSoon;
@@ -534,7 +566,6 @@ export function Song() {
                           : "bg-[#D9D9D9] hover:bg-white hover:-translate-y-0.5 cursor-pointer"
                         }`}
                     >
-                      {/* Badge Status di Pojok Kanan Atas */}
                       {isLocked ? (
                         <span className="absolute -top-2.5 right-1.5 bg-black text-white font-bangers text-[11px] tracking-wider px-2 py-0.5 border border-white rotate-4 uppercase z-10">
                           SEGERA
@@ -547,7 +578,6 @@ export function Song() {
                         )
                       )}
 
-                      {/* Gambar Kaset */}
                       <div className="w-full aspect-[16/10] mb-2 overflow-hidden">
                         <img
                           src={song.cassetteSvg}
@@ -558,7 +588,6 @@ export function Song() {
                         />
                       </div>
 
-                      {/* Footer Kartu */}
                       <div className="w-full border-t-2 border-black pt-1.5 flex items-center justify-between">
                         <span className="bg-black text-pale-cream font-bangers text-xs tracking-wider px-1.5 py-0.5">
                           #{song.number}
@@ -575,11 +604,9 @@ export function Song() {
           </div>
 
           {/* KOTAK 2: TAB LIRIK LAGU & CERITA DI BALIK LAGU */}
-          <div className="relative flex-1 bg-white text-black border-4 border-black p-5 sm:p-6 shadow-comic-lg flex flex-col">
-            {/* Selotip Merah di Pojok Kanan Atas */}
+          <div className="song-lyrics opacity-0 relative flex-1 bg-white text-black border-4 border-black p-5 sm:p-6 shadow-comic-lg flex flex-col">
             <div className="absolute -top-3 right-6 w-16 h-5 bg-red/90 border border-black/30 rotate-3 pointer-events-none" />
 
-            {/* Header Tab */}
             <div className="flex flex-wrap items-center gap-2 border-b-2 border-black pb-3 mb-4">
               <button
                 type="button"
@@ -604,7 +631,6 @@ export function Song() {
               </button>
             </div>
 
-            {/* Konten Lirik atau Cerita */}
             <div className="max-h-64 overflow-y-auto pr-2 font-space-mono text-xs sm:text-sm leading-relaxed text-neutral-800 whitespace-pre-line">
               {activeTab === "lyrics" ? currentSong.lyrics : currentSong.story}
             </div>
