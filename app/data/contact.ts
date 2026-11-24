@@ -12,13 +12,13 @@ export const contactData = {
     "Other",
   ],
   channels: [
-    {
-      type: "phone" as const,
-      label: "WHATSAPP",
-      value: "+62 859-5987-2110",
-      href: "https://wa.me/6285959872110",
-      badgeBg: "bg-red text-pale-cream",
-    },
+    // {
+    //   type: "phone" as const,
+    //   label: "WHATSAPP",
+    //   value: "+62 859-5987-2110",
+    //   href: "https://wa.me/6285959872110",
+    //   badgeBg: "bg-red text-pale-cream",
+    // },
     {
       type: "email" as const,
       label: "EMAIL",
