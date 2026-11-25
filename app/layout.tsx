@@ -23,10 +23,29 @@ const caveat = Caveat({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://vlabum.vercel.app"),
   title: "VLABUM+",
   description: "Band Indie",
+  openGraph: {
+    title: "VLABUM+",
+    description: "Band Indie",
+    url: "https://vlabum.vercel.app",
+    siteName: "VLABUM+",
+    images: [
+      {
+        url: "/og-image.jpeg",
+        alt: "VLABUM+",
+      },
+    ],
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "VLABUM+",
+    description: "Band Indie",
+    images: ["/og-image.jpeg"],
+  },
 };
-
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
