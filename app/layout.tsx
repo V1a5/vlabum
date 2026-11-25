@@ -35,9 +35,11 @@ export const metadata: Metadata = {
     siteName: "VLABUM+",
     images: [
       {
-        url: "/og-image.jpeg",
+        url: "https://vlabum.vercel.app/og-image.jpg",
+        secureUrl: "https://vlabum.vercel.app/og-image.jpg",
         width: 1200,
         height: 630,
+        type: "image/jpeg",
         alt: "VLABUM+ Official Website",
       },
     ],
@@ -49,7 +51,7 @@ export const metadata: Metadata = {
     title: "VLABUM+ — Indie Band",
     description:
       "Dengarkan rilisan terbaru VLABUM+ dalam format pemutar kaset interaktif, lengkap dengan lirik dan cerita di balik lagu.",
-    images: ["/og-image.jpeg"],
+    images: ["https://vlabum.vercel.app/og-image.jpg"],
   },
 };
 
