@@ -24,28 +24,35 @@ const caveat = Caveat({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://vlabum.vercel.app"),
-  title: "VLABUM+",
-  description: "Band Indie",
+  title: "VLABUM+ — Indie Band",
+  description:
+    "Website resmi VLABUM+. Dengarkan lagu, baca cerita di balik lirik, dan ikuti rilisan terbaru kami.",
   openGraph: {
-    title: "VLABUM+",
-    description: "Band Indie",
+    title: "VLABUM+ — Indie Band",
+    description:
+      "Dengarkan rilisan terbaru VLABUM+ dalam format pemutar kaset interaktif, lengkap dengan lirik dan cerita di balik lagu.",
     url: "https://vlabum.vercel.app",
     siteName: "VLABUM+",
     images: [
       {
         url: "/og-image.jpeg",
-        alt: "VLABUM+",
+        width: 1200,
+        height: 630,
+        alt: "VLABUM+ Official Website",
       },
     ],
+    locale: "id_ID",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "VLABUM+",
-    description: "Band Indie",
+    title: "VLABUM+ — Indie Band",
+    description:
+      "Dengarkan rilisan terbaru VLABUM+ dalam format pemutar kaset interaktif, lengkap dengan lirik dan cerita di balik lagu.",
     images: ["/og-image.jpeg"],
   },
 };
+
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
